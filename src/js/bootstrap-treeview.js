@@ -137,6 +137,7 @@
 			getUnchecked: $.proxy(this.getUnchecked, this),
 			getDisabled: $.proxy(this.getDisabled, this),
 			getEnabled: $.proxy(this.getEnabled, this),
+			getChanged: $.proxy(this.getChanged, this),
 
 			// Tree manipulation methods
 			addNode: $.proxy(this.addNode, this),
@@ -764,6 +765,8 @@
 			node.$el.toggleClass('node-check-changed', (this._checkedNodes.indexOf(node) == -1) == state);
 		}
 
+		node.state.changed = (this._checkedNodes.indexOf(node) == -1) == state;
+
 		if (state) {
 
 			// Set node state
@@ -1299,6 +1302,14 @@
 	*/
 	Tree.prototype.getEnabled = function () {
 		return this._findNodes('false', 'state.disabled');
+	};
+
+	/**
+	 Returns an array of changed nodes.
+	 @returns {Array} nodes - Enabled nodes
+	 */
+	Tree.prototype.getChanged = function () {
+		return this._findNodes('false', 'state.changed');
 	};
 
 
